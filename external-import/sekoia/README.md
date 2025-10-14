@@ -47,6 +47,8 @@ connector-sekoia:
       - SEKOIA_CREATE_OBSERVABLES=true  # Create observables from indicators
       - SEKOIA_IMPORT_SOURCE_LIST=false # Create the list of sources observed by Sekoia as label
       - SEKOIA_IMPORT_IOC_RELATIONSHIPS=true # Optional, Import IOCs relationships and related objects - Default: true
+      - SEKOIA_FORCE_CONFIDENCE_SCORE=false #Optional, force the score to the SEKOIA_CONFIDENCE_SCORE. Warning all indicators from Sekoia.IO will have this score.
+      - SEKOIA_CONFIDENCE_SCORE=50 #Optional, If SEKOIA_FORCE_CONFIDENCE_SCORE is set to true, this will be the score assigned to the indicators. Defaults to 50, maximum 100.
     restart: always
     depends_on:
       - opencti
