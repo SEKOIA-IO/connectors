@@ -37,7 +37,6 @@ class SekoiaConnector(object):
         self.api_key = self.config.sekoia.api_key.get_secret_value()
         self.base_url = self.config.sekoia.base_url
         self.confidence_score = self.config.sekoia.confidence_score
-        self.force_confidence_score = self.config.sekoia.force_confidence_score
         self.start_date = self.config.sekoia.start_date
         self.limit = self.config.sekoia.limit
         self.collection = self.config.sekoia.collection
@@ -172,7 +171,7 @@ class SekoiaConnector(object):
             return cursor
 
         items = self._retrieve_references(items)
-        self._add_main_observable_type_to_indicators(items, self.confidence_score, self.force_confidence_score)
+        self._add_main_observable_type_to_indicators(items, self.confidence_score)
         if self.create_observables:
             self._add_create_observables_to_indicators(items)
         self._clean_external_references_fields(items)
@@ -287,7 +286,9 @@ class SekoiaConnector(object):
                 item["x_opencti_create_observables"] = True
 
     @staticmethod
-    def _add_main_observable_type_to_indicators(items: List[Dict], confidence_score: int, force_confidence_score: bool):
+    def _add_main_observable_type_to_indicators(
+        items: List[Dict], confidence_score: int | None
+    ):
         for item in items:
             if (
                 item.get("type") == "indicator"
@@ -298,7 +299,7 @@ class SekoiaConnector(object):
                 item["x_opencti_main_observable_type"] = (
                     OpenCTIStix2Utils.stix_observable_opencti_type(stix_type)
                 )
-                if force_confidence_score:
+                if confidence_score:
                     item["x_opencti_score"] = confidence_score
                 else:
                     item["x_opencti_score"] = item.get("confidence", None)
