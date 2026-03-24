@@ -5,11 +5,12 @@ on:
   pull_request:
     types: [ opened, reopened ]
 
-permissions:
-  pull-requests: write
+permissions: {}
 
 jobs:
   assign-author:
+    permissions:
+      pull-requests: write  # for toshimaru/auto-author-assign to assign author to pull requests
     runs-on: ubuntu-latest
     steps:
-      - uses: toshimaru/auto-author-assign@v2.1.1
+      - uses: toshimaru/auto-author-assign@4d585cc37690897bd9015942ed6e766aa7cdb97f # v3.0.1
