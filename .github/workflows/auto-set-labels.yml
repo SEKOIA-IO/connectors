@@ -7,8 +7,8 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Setting labels
-        uses: FiligranHQ/auto-label@1.0.0
+        uses: FiligranHQ/auto-label@5485ed882430df9a8067a88805a963c9f454e864 # 1.0.0
         with:
           labels_by_organization: "{\"FiligranHQ\":[\"filigran team\"]}"
